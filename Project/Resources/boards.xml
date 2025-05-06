@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<boardlist>
+  	<board>
+    	<name>Arduino Mega2560 R3</name>
+    	<protcol>stk500v2</protcol>
+    	<!-- 00000H 3E000H  -->
+    	<flash_start_address>0</flash_start_address>
+    	<flash_end_address>253952</flash_end_address>
+    	<upload_speed>115200</upload_speed>
+    	<dtr_control>EnableAndThroughDisable</dtr_control>
+  	</board>
+  	<board>
+    	<name>Arduino Uno(Optiboot V4-V7)</name>
+    	<protcol>stk500</protcol>
+    	<!-- 0000H 7E00H  -->
+    	<flash_start_address>0</flash_start_address>
+    	<flash_end_address>32256</flash_end_address>
+    	<upload_speed>115200</upload_speed>
+    	<dtr_control>EnableAndThrough</dtr_control>
+  	</board>
+</boardlist>

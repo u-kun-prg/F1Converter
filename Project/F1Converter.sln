@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31702.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "F1Converter", "F1Converter.csproj", "{9939E5EA-86BE-44A9-A439-9D33E6164741}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F60D7A6D-048A-404B-B999-0DAE1C8BEAF7}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		fiIcon.ico = fiIcon.ico
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		DevelopBuild|Any CPU = DevelopBuild|Any CPU
+		Devlop|Any CPU = Devlop|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9939E5EA-86BE-44A9-A439-9D33E6164741}.Debug|Any CPU.ActiveCfg = Release|Any CPU
+		{9939E5EA-86BE-44A9-A439-9D33E6164741}.Debug|Any CPU.Build.0 = Release|Any CPU
+		{9939E5EA-86BE-44A9-A439-9D33E6164741}.DevelopBuild|Any CPU.ActiveCfg = Debug|Any CPU
+		{9939E5EA-86BE-44A9-A439-9D33E6164741}.DevelopBuild|Any CPU.Build.0 = Debug|Any CPU
+		{9939E5EA-86BE-44A9-A439-9D33E6164741}.Devlop|Any CPU.ActiveCfg = DevelopBuild|Any CPU
+		{9939E5EA-86BE-44A9-A439-9D33E6164741}.Devlop|Any CPU.Build.0 = DevelopBuild|Any CPU
+		{9939E5EA-86BE-44A9-A439-9D33E6164741}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{9939E5EA-86BE-44A9-A439-9D33E6164741}.Release|Any CPU.Build.0 = Debug|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A0B835ED-477C-4C80-9376-E532423AD28A}
+	EndGlobalSection
+EndGlobal

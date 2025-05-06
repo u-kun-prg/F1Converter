@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<targetlist>
+  	<target>
+    	<name>OPM</name>
+    	<commands>00 02 03 04 05 06 07 09 0A 0B 0C 0D 00 00 00 00 00 00 00 00</commands>
+    	<chips>
+    		<targetchip>YM2151</targetchip>
+    		<targetclock>3579545 4000000</targetclock>
+    		<targettopcode>100</targettopcode>
+    	</chips>
+  	</target>
+  	<target>
+    	<name>OPN</name>
+    	<commands>FF FE FD FC D0 D1 D2 D3 D4 D5 D6 D7 FF FF FF FF FF FF FF FF</commands>
+    	<chips>
+    		<targetchip>YM2203</targetchip>
+    		<targetclock>4000000 3993600 3579545</targetclock>
+    		<targettopcode>100</targettopcode>
+    	</chips>
+  	</target>
+  	<target>
+    	<name>OPNA</name>
+    	<commands>FF FE FD FC D0 D1 D2 D3 D4 D5 D6 D7 FF FF FF FF FF FF FF FF</commands>
+    	<chips>
+    		<targetchip>YM2608</targetchip>
+    		<targetclock>7987200 8000000</targetclock>
+    		<targettopcode>100</targettopcode>
+    	</chips>
+  	</target>
+  	<target>
+    	<name>OPN2</name>
+    	<commands>43 47 4B 4F 53 57 5B 5F 63 67 6B 6F 73 77 7B 43 43 43 43 43</commands>
+    	<chips>
+    		<targetchip>YM2612</targetchip>
+    		<targetclock>7670453 8000000</targetclock>
+    		<targettopcode>100</targettopcode>
+    	</chips>
+  	</target>
+  	<target>
+    	<name>OPNB</name>
+    	<commands>FF FE FD FC D0 D1 D2 D3 D4 D5 D6 D7 FF FF FF FF FF FF FF FF</commands>
+    	<chips>
+    		<targetchip>YM2610</targetchip>
+    		<targetclock>8000000</targetclock>
+    		<targettopcode>100</targettopcode>
+    	</chips>
+  	</target>
+  	<target>
+    	<name>OPNB2</name>
+    	<commands>FF FE FD FC D0 D1 D2 D3 D4 D5 D6 D7 FF FF FF FF FF FF FF FF</commands>
+    	<chips>
+    		<targetchip>YM2610B</targetchip>
+    		<targetclock>8000000</targetclock>
+    		<targettopcode>100</targettopcode>
+    	</chips>
+  	</target>
+  	<target>
+    	<name>OPN3L</name>
+    	<commands>FF FE FD FC D0 D1 D2 D3 D4 D5 D6 D7 FF FF FF FF FF FF FF FF</commands>
+    	<chips>
+    		<targetchip>YMF288</targetchip>
+    		<targetclock>7987200 8000000</targetclock>
+    		<targettopcode>100</targettopcode>
+    	</chips>
+  	</target>
+  	<target>
+    	<name>OPL</name>
+    	<commands>00 02 03 04 05 06 07 09 0A 0B 0C 0D 00 00 00 00 00 00 00 00</commands>
+    	<chips>
+    		<targetchip>YM3526</targetchip>
+    		<targetclock>3579545 4000000</targetclock>
+    		<targettopcode>100</targettopcode>
+    	</chips>
+  	</target>
+  	<target>
+    	<name>OPL2</name>
+    	<commands>FF FE FD FC D0 D1 D2 D3 D4 D5 D6 D7 FF FF FF FF FF FF FF FF</commands>
+    	<chips>
+    		<targetchip>YM3812</targetchip>
+    		<targetclock>3579545 4000000</targetclock>
+    		<targettopcode>100</targettopcode>
+    	</chips>
+  	</target>
+  	<target>
+    	<name>OPL3</name>
+    	<commands>FF FE FD FC D0 D1 D2 D3 D4 D5 D6 D7 FF FF FF FF FF FF FF FF</commands>
+    	<chips>
+    		<targetchip>YMF262</targetchip>
+    		<targetclock>14318180</targetclock>
+    		<targettopcode>100</targettopcode>
+    	</chips>
+  	</target>
+  	<target>
+    	<name>OPLL</name>
+    	<commands>FF FE FD FC D0 D1 D2 D3 D4 D5 D6 D7 FF FF FF FF FF FF FF FF</commands>
+    	<chips>
+    		<targetchip>YM2413</targetchip>
+    		<targetclock>3579545</targetclock>
+    		<targettopcode>100</targettopcode>
+    	</chips>
+  	</target>
+  	<target>
+    	<name>DCSGx2</name>
+    	<commands>40 4D 4E 4F 41 42 43 44 45 46 47 48 40 40 40 40 40 40 40 40</commands>
+    	<chips>
+    		<targetchip>SN76489</targetchip>
+    		<targetclock>4000000</targetclock>
+    		<targettopcode>100</targettopcode>
+    	</chips>
+    	<chips>
+    		<targetchip>SN76489</targetchip>
+    		<targetclock>4000000</targetclock>
+    		<targettopcode>100</targettopcode>
+    	</chips>
+  	</target>
+  	<target>
+    	<name>OPN2_DCSG</name>
+    	<commands>43 47 4B 4F 53 57 5B 5F 63 67 6B 6F 73 77 7B 43 43 43 43 43</commands>
+    	<chips>
+    		<targetchip>YM2612</targetchip>
+    		<targetclock>7670453</targetclock>
+    		<targettopcode>100</targettopcode>
+    	</chips>
+    	<chips>
+    		<targetchip>SN76489</targetchip>
+    		<targetclock>3579545</targetclock>
+    		<targettopcode>100</targettopcode>
+    	</chips>
+  	</target>
+  	<target>
+    	<name>PSG_SCC</name>
+    	<commands>90 91 92 93 94 95 96 97 98 99 9A 9B 90 90 90 90 90 90 90 90</commands>
+    	<chips>
+    		<targetchip>AY_3_8910</targetchip>
+    		<targetclock>1789772</targetclock>
+    		<targettopcode>100</targettopcode>
+    	</chips>
+    	<chips>
+    		<targetchip>K051649</targetchip>
+    		<targetclock>3579545</targetclock>
+    		<targettopcode>100</targettopcode>
+    	</chips>
+  	</target>
+  	<target>
+    	<name>PSG_SCCI</name>
+    	<commands>B0 B1 B2 B3 B4 B5 B6 B7 B8 B9 BA BB B0 B0 B0 B0 B0 B0 B0 B0</commands>
+    	<chips>
+    		<targetchip>AY_3_8910</targetchip>
+    		<targetclock>1789772</targetclock>
+    		<targettopcode>100</targettopcode>
+    	</chips>
+    	<chips>
+    		<targetchip>K052539</targetchip>
+    		<targetclock>3579545</targetclock>
+    		<targettopcode>100</targettopcode>
+    	</chips>
+  	</target>
+  	<target>
+    	<name>PSG_OPLL</name>
+    	<commands>FF FE FD FC D0 D1 D2 D3 D4 D5 D6 D7 FF FF FF FF FF FF FF FF</commands>
+    	<chips>
+    		<targetchip>AY_3_8910</targetchip>
+    		<targetclock>1789772</targetclock>
+    		<targettopcode>100</targettopcode>
+    	</chips>
+    	<chips>
+    		<targetchip>YM2413</targetchip>
+    		<targetclock>3579545</targetclock>
+    		<targettopcode>100</targettopcode>
+    	</chips>
+  	</target>
+  	<target>
+    	<name>OPNx2</name>
+    	<commands>FF FE FD FC D0 D1 D2 D3 D4 D5 D6 D7 FF FF FF FF FF FF FF FF</commands>
+    	<chips>
+    		<targetchip>YM2203</targetchip>
+    		<targetclock>3993600 1996800 4000000 3579545</targetclock>
+    		<targettopcode>100</targettopcode>
+    	</chips>
+    	<chips>
+    		<targetchip>YM2203</targetchip>
+    		<targetclock>3993600 1996800 4000000 3579545</targetclock>
+    		<targettopcode>100</targettopcode>
+    	</chips>
+  	</target>
+<!--
+  	<target>
+    	<name>OPM_M6258</name>
+    	<commands>00 02 03 04 05 06 07 09 0A 0B 0C 0D 00 00 00 00 00 00 00 00</commands>
+    	<chips>
+    		<targetchip>YM2151</targetchip>
+    		<targetclock>3579545</targetclock>
+    		<targettopcode>100</targettopcode>
+    	</chips>
+    	<chips>
+    		<targetchip>M6258</targetchip>
+    		<targetclock>8000000</targetclock>
+    		<targettopcode>0E</targettopcode>
+    	</chips>
+  	</target>
+-->
+  	<target>
+    	<name>OPM_M6295</name>
+    	<commands>00 02 03 04 05 06 07 09 0A 0B 0C 0D 00 00 00 00 00 00 00 00</commands>
+    	<chips>
+    		<targetchip>YM2151</targetchip>
+    		<targetclock>3579545</targetclock>
+    		<targettopcode>100</targettopcode>
+    	</chips>
+    	<chips>
+    		<targetchip>M6295</targetchip>
+    		<targetclock>1000000</targetclock>
+    		<targettopcode>0E</targettopcode>
+    	</chips>
+  	</target>
+  	<target>
+    	<name>OPM_K053260</name>
+    	<commands>00 02 03 04 05 06 07 09 0A 0B 0C 0D 00 00 00 00 00 00 00 00</commands>
+    	<chips>
+    		<targetchip>YM2151</targetchip>
+    		<targetclock>3579545</targetclock>
+    		<targettopcode>100</targettopcode>
+    	</chips>
+    	<chips>
+    		<targetchip>K053260</targetchip>
+    		<targetclock>3579545</targetclock>
+    		<targettopcode>0E</targettopcode>
+    	</chips>
+  	</target>
+</targetlist>
