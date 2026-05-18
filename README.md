@@ -61,9 +61,9 @@ Sound chips supported by F1 Converter.
 - YM2149(YPSG)
 - K051649(KONAMI SCC)
 - K052539(KONAMI SCCI)
-- M6258(M6258)
+- M6258(M6258)　実チップ未検証　Not verified on actual chip.
 - M6295(M6295)
-- K053260(K053260)　実チップ未検証　Not verified on actual chip.
+- K053260(K053260)
 
 F1 フォーマットでは、チップ指定が存在しないため、対応チップは必要ありませんが、  
 vgm、s98、mdx からの変換では、音程変換や音量変換のために、チップ指定が必要です。  
@@ -108,7 +108,7 @@ the size of the F1 format file.
 |YM2151(OPM)<br>and<br>OKI-M6295|M6295-0E|00|02|03|04|05|06|07|09|0A|0B|0C|0D|00|00|00|00|00|00|00|00|
 |YM2151(OPM)<br>and<br>KONAMI-K053260|K053260-0E|00|02|03|04|05|06|07|09|0A|0B|0C|0D|00|00|00|00|00|00|00|00|
 
-### Hardwares 
+## Hardwares 
 
 ハードウェアは、Arduino Mega2560 Rev3 、Arduino Mega2560 Rev3 の  
 シールドとして製作しています。Arduino の スケッチでF1フォーマットを再生します。  
@@ -124,6 +124,12 @@ Arduino Mega2560 Rev3. The Arduino sketch plays the F1 format.
 The hardware definition is set in /Resources/target.xml.  
 Hardware schematics and sketches will not be made public.  
 
+## Features under test
+
+M6295は、M6258のコマンドとサンプリングデータをM6295向けのデータに変換します。
+
+The M6295 converts the commands and sampled data from the M6258 
+into data suitable for the M6295.
 
 ## License
 
