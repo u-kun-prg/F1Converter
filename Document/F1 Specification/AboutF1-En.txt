@@ -1,0 +1,338 @@
+-------------------------------------------------------------------------------
+F1 specifications.
+-------------------------------------------------------------------------------
+About F1
+-------------------------------------------------------------------------------
+F1 is a log format for older instrument chips.
+It is mainly intended for music playback on actual chips.
+
+F1 files are binary files with a .F1 extension. The size is made as small 
+as possible so that it can be handled by many one-board microcomputers.
+Since it does not include information such as the type and clock of the sound 
+source chip, it can flexibly support many sound source chips.
+
+F1 consists of a header and play data of the sound source log.
+
+If the song contains PCM playback, the F1 file will contain a PCM data block.
+
+
+-------------------------------------------------------------------------------
+Header format
+-------------------------------------------------------------------------------
+Place the header at offset address 0x000000 at the beginning of the file.
+
+The size of the header is 32 bytes.
+
+The header is the register access data of the play data and
+Contains command code to distinguish command data.
+
+The multi-byte data in the header is stored in big endian.
+
+[Header]
+
+0x000000  46 31           Header Id       "F1"
+0x000002  10              F1 Version      1.0
+0x000003  xx              Loop count
+0x000004  xx xx xx xx     Wait time[ns]
+0x000008  xx xx xx xx     Offset to PCM data block
+0x00000C  xx              Command Code  End code
+0x00000D  xx              Command Code  A1 switching
+0x00000E  xx              Command Code  CS switching
+0x00000F  xx              Command Code  Loop Point
+0x000010  xx              Command Code  Waiting interval x 1 byte
+0x000011  xx              Command Code  Waiting interval x 2 bytes
+0x000012  xx              Command Code  Waiting interval x 1
+0x000013  xx              Command Code  Waiting interval x 2
+0x000014  xx              Command Code  Waiting interval x 3
+0x000015  xx              Command Code  Waiting interval x 4
+0x000016  xx              Command Code  Waiting interval x 5
+0x000017  xx              Command Code  Waiting interval x 6
+0x000018  xx              Command Code  DAC Write Waiting interval x 1 byte
+0x000019  xx              Command Code  DAC Write Waiting interval Run Length
+0x00001A  xx              Command Code  DAC PCM Seek
+0x00001B  xx              Command Code  Free 0
+0x00001C  xx              Command Code  Free 1
+0x00001D  xx              Command Code  Free 2
+0x00001E  xx              Command Code  Free 3
+0x00001F  xx              Command Code  Free 4
+
+---------------------------------------
+Header Id     (2 bytes)
+
+0x000000 46 31
+
+It is an identifier. "F1" in ASCII
+
+---------------------------------------
+F1 version    (1 byte)
+
+0x000002 10
+
+The upper 4 bits are the major version. The lower 4 bits are the minor version.
+Currently, there are no plans to update from 1.0.
+
+---------------------------------------
+Loop count    (1 byte)
+
+0x000003 xx
+
+Specify the number of times to perform loop playback. 
+It is invalid if there is no loop specified in the play data.
+
+---------------------------------------
+Wait time [ns]   (4 bytes)
+
+0x000004 xx xx xx xx
+
+Specify the waiting time "1" in nanoseconds.
+
+---------------------------------------
+Offset to PCM data block  (4 bytes)
+
+0x000008 xx xx xx xx
+
+Specifies the address of the PCM data block if it contains a PCM data block.
+The address is the address from the beginning of the file.
+If it does not include a PCM data block, specify FF FF FF FF.
+
+---------------------------------------
+Command code        (1 byte each)
+
+0x00000C - 0x00001F
+
+Specify the byte value (command code) to be the command in the play data.
+There are 12 types of commands with fixed uses and 4 types that can be used freely.
+
+-------------------------------------------------------------------------------
+Play data format
+-------------------------------------------------------------------------------
+
+Play data is placed at offset address 0x20 (32) immediately after the header.
+
+For play data, command data and register access data are arranged in order 
+according to the music playback.
+
+Discrimination between command data and register access data in play data is 
+Determines if the byte value of the data matches the specified command code 
+in the header.
+
+---------------------------------------
+Command data
+---------------------------------------
+End code (1 byte)
+
+XX
+
+This is a music end command. If the loop point is placed in the play data, 
+the playback position is moved to the loop point. 
+The number of loops is specified in the header.
+
+---------------------------------------
+A1 switching (1 byte or 2 bytes)
+
+XX (A1)
+
+This command switches the A1 flag of the sound source chip alternately 
+with 0 and 1. For sound source chips that require a specification other 
+than 0 or 1 for A1, specify the value in the following 1 byte.
+
+---------------------------------------
+CS switching (1 byte or 2 bytes)
+
+XX (CS)
+
+Target hardware with multiple sound source chips
+This command alternately switches the sound source chip number to be 
+accessed between 0 and 1. If there are three or more sound source chips, 
+specify the sound source chip number in the following 1 byte.
+
+---------------------------------------
+Loop point (1 byte)
+
+XX
+
+This command specifies the loop position of a song in the play data.
+
+---------------------------------------
+Waiting interval x 1 byte (2 bytes)
+
+XX tt
+
+This command specifies the waiting time interval in the play data.
+The waiting time interval is the header "waiting time [ns]" x the 
+following 1-byte time.
+
+---------------------------------------
+Waiting interval x 2Bytes (3 bytes)
+
+XX tt tt
+
+This command specifies the waiting time interval in the play data.
+The waiting time interval is the header "waiting time [ns]" x the 
+following 2-byte time.
+
+---------------------------------------
+Waiting interval x 1～6  (1 byte)
+
+XX
+
+This command specifies the waiting time interval in the play data.
+The waiting time interval is the header "waiting time [ns]" x 1 to 6.
+
+--------------------------------
+DAC Write Waiting interval x 1 byte (2 bytes)
+
+XX tt
+
+This command specifies the waiting time interval after writing a 
+PCM data block to the DAC in the play data.
+The waiting time interval is the header "waiting time [ns]" x the 
+following 1-byte time.
+
+--------------------------------
+DAC Write Waiting interval Run Length (3 bytes)
+
+XX tt cc
+
+This is a command that specifies the interval and number of 
+times once in the play data after writing from the PCM data block to the DAC.
+The waiting time interval is the header "waiting time [ns]" x the 
+following 1-byte time.
+
+--------------------------------
+DAC PCM Seek (5 bytes)
+
+XX xx xx xx xx
+
+Seeks the PCM data pointer to the specified address.
+The address is the offset of the PCM data binary.
+
+---------------------------------------
+Command free 0 - 4 (1 byte each)
+
+XX
+
+A command code that can be used by the playback program.
+The content of the command is left to the program that plays F1.
+
+-----------------------------------------------
+Supplementary information about command codes
+-----------------------------------------------
+The command code uses the byte value not assigned to the register number 
+by the sound source chip, or the byte value of the register number not 
+related to music playback, so that it can be distinguished from the 
+register access data.
+
+---------------------------------------
+Register access data
+---------------------------------------
+
+The data other than the command data in the play data is register access data.
+
+Since many sound source chips access registers with 8-bit register numbers and 8-bit data, 
+register access data consists of a 2-byte structure of register numbers and data.
+
+XX XX 
+
+It is 1 byte for some sound source chips.
+
+XX
+
+The data length of the register access data is
+It conforms to the specifications of the sound source chip and the playback program.
+
+-------------------------------------------------------------------------------
+
+[Header and play data sample]
+
+F1 Header:
+0x000000: 46 31           HeaderID        : F1
+0x000002: 10              F1 Version      : 1.0
+0x000003: 03              Loop Count      : 3
+0x000004: 00 00 58 94     OneWaitTime     : 22676[ns]
+0x000008: FF FF FF FF     PCM Data Block  : 0xFFFFFFFF
+0x00000C: 90              Cmd:EndCode     : 90
+0x00000D: 91              Cmd:ChangeA1    : 91
+0x00000E: 92              Cmd:ChangeCS    : 92
+0x00000F: 93              Cmd:LoopPoint   : 93
+0x000010: 94              Cmd:Wait1Byte   : 94
+0x000011: 95              Cmd:Wait2Bytes  : 95
+0x000012: 96              Cmd:1Wait       : 96
+0x000013: 97              Cmd:2Wait       : 97
+0x000014: 98              Cmd:3Wait       : 98
+0x000015: 99              Cmd:4Wait       : 99
+0x000016: 9A              Cmd:5Wait       : 9A
+0x000017: 9B              Cmd:6Wait       : 9B
+0x000018: 9B              Cmd:WriteWait   : 90
+0x000019: 9B              Cmd:WriteWaitRL : 90
+0x00001A: 9B              Cmd:PCMSeek     : 90
+0x00001B: 90              Cmd:Free0       : 90
+0x00001C: 90              Cmd:Free1       : 90
+0x00001D: 90              Cmd:Free2       : 90
+0x00001E: 90              Cmd:Free3       : 90
+0x00001F: 90              Cmd:Free4       : 90
+F1 PlayData:
+0x000020: 00 00           RegisterCS0:  Write 00 to register 00.
+0x000022: 96              Commmand   :  Wait  1.
+0x000023: 01 00           RegisterCS0:  Write 00 to register 01.
+0x000025: 97              Commmand   :  Wait  2.
+0x000026: 08 00           RegisterCS0:  Write 00 to register 08.
+0x000028: 97              Commmand   :  Wait  2.
+0x000029: 02 00           RegisterCS0:  Write 00 to register 02.
+0x00002B: 97              Commmand   :  Wait  2.
+0x00002C: 03 0A           RegisterCS0:  Write 0A to register 03.
+0x00002E: 97              Commmand   :  Wait  2.
+0x00002F: 09 0A           RegisterCS0:  Write 0A to register 09.
+0x000031: 97              Commmand   :  Wait  2.
+0x000032: 04 A0           RegisterCS0:  Write A0 to register 04.
+0x000034: 96              Commmand   :  Wait  1.
+0x000035: 05 02           RegisterCS0:  Write 02 to register 05.
+0x000037: 97              Commmand   :  Wait  2.
+0x000038: 0A 0C           RegisterCS0:  Write 0C to register 0A.
+0x00003A: 99              Commmand   :  Wait  4.
+0x00003B: 06 00           RegisterCS0:  Write 00 to register 06.
+0x00003D: 9A              Commmand   :  Wait  6.
+0x00003E: 07 A9           RegisterCS0:  Write A9 to register 07.
+0x000040: 94 1E           Commmand   :  WaitByte  30
+0x000042: 92              Commmand   :  ChangeCS  To 1
+0x000043: 82 19           RegisterCS1:  Write 19 to register 82.
+
+-------------------------------------------------------------------------------
+PCM data block format
+-------------------------------------------------------------------------------
+
+PCM data stores PCM binary data such as DAC and ADPCM.
+
+If multiple sound source chips are supported, or if the sound source chip has 
+multiple PCM functions, multiple PCM data blocks are stored.
+
+One PCM data block consists of a 12 bytes header and binary data.
+
+--------------------------------
+Structure of PCM data block
+--------------------------------
+0x000000 xx chip select
+0x000001 xx data type
+0x000002 xx xx xx xx start address
+0x000006 xx xx xx xx size
+0x00000A xx xx xx xx Offset of the next PCM data block
+
+Chip select
+Specify the number of the sound source chip that uses the PCM data block.
+
+Data type
+It is used to identify the PCM function installed in the sound source chip.
+The value depends on the sound source chip.
+
+Start address
+Specifies the memory address on the target hardware to load the PCM binary data.
+
+Size
+Specifies the byte size of PCM binary data.
+
+Offset of the next PCM data block
+When storing multiple PCM data block Specify the address of the following PCM data block.
+If the following data does not exist, specify FF FF FF FF.
+
+Stores binary data from 0x00000C.
+-------------------------------------------------------------------------------

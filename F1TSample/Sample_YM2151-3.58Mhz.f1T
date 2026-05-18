@@ -1,0 +1,94 @@
+/*
+	F1T	Sample 
+		For YM2151	3.579545Mhz
+*/
+
+F1Header:
+	Version		1.0
+	LoopCount	1
+	OneWaitNs	250000000	//	0.25[s]
+
+	CmdEnd		0x00
+	CmdA1		0x02
+	CmdCS		0x03
+	CmdLp		0x04
+	CmdByteW	0x05
+	CmdWordW	0x06
+	CmdW1		0x07
+	CmdW2		0x09
+	CmdW3		0x0A
+	CmdW4		0x0B
+	CmdW5		0x0C
+	CmdW6		0x0D
+	CmdWrByteW	0xFF
+	CmdWrRLW	0xFF
+	CmdWrSeek	0xFF
+	CmdF0		0xFF
+	CmdF1		0xFF
+	CmdF2		0xFF
+	CmdF3		0xFF
+	CmdF4		0xFF
+
+//
+//	Play Data.
+//
+F1PlayData:
+		0x0F, 0x00,			//	fnoise Off.
+		0x14, 0x00,			//	Timer Reg.
+
+	//
+	//	Tone
+	//
+		0x20, 0xC7,											//	LR=11 FB=000 Connect = 111
+		0x40,0x01,	0x48,0x00,	0x50,0x04,	0x58,0x0C,		//	DT1	MUL		ch.A OP1, OP3, OP2, OP4
+		0x60,0x08,	0x68,0x08,	0x70,0x08,	0x78,0x08,		//	TL			ch.A OP1, OP3, OP2, OP4
+		0x80,0xDF,	0x88,0xDF,	0x90,0xDF,	0x98,0xDF,		//	KS AR		ch.A OP1, OP3, OP2, OP4
+		0xA0,0x05,	0xA8,0x05,	0xB0,0x05,	0xB8,0x05,		//	D1R			ch.A OP1, OP3, OP2, OP4
+		0xC0,0x00,	0xC8,0x00,	0xD0,0x00,	0xD8,0x00,		//	DT2 D2R		ch.A OP1, OP3, OP2, OP4
+		0xE0,0x2A,	0xE8,0x2A,	0xF0,0x2A,	0xF8,0x2A,		//	D1L	RR		ch.A OP1, OP3, OP2, OP4
+
+	//
+	//	Play.
+	//	
+
+		0x28, 0x3E,		//	C
+		0x08, 0bx_1111_000,		//	ChannelA.OP1-4 ON
+			Wait 4
+		0x08, 0bx_0000_000,		//	ChannelA.OP1-4 ON
+
+		0x28, 0x41,		//	D
+		0x08, 0bx_1111_000,		//	ChannelA.OP1-4 ON
+			Wait 4
+		0x08, 0bx_0000_000,		//	ChannelA.OP1-4 ON
+
+		0x28, 0x44,		//	E
+		0x08, 0bx_1111_000,		//	ChannelA.OP1-4 ON
+			Wait 4
+		0x08, 0bx_0000_000,		//	ChannelA.OP1-4 ON
+
+		0x28, 0x45,		//	F
+		0x08, 0bx_1111_000,		//	ChannelA.OP1-4 ON
+			Wait 4
+		0x08, 0bx_0000_000,		//	ChannelA.OP1-4 ON
+
+		0x28, 0x48,		//	G
+		0x08, 0bx_1111_000,		//	ChannelA.OP1-4 ON
+			Wait 4
+		0x08, 0bx_0000_000,		//	ChannelA.OP1-4 ON
+
+		0x28, 0x4A,		//	A
+		0x08, 0bx_1111_000,		//	ChannelA.OP1-4 ON
+			Wait 4
+		0x08, 0bx_0000_000,		//	ChannelA.OP1-4 ON
+
+		0x28, 0x4D,		//	B
+		0x08, 0bx_1111_000,		//	ChannelA.OP1-4 ON
+			Wait 4
+		0x08, 0bx_0000_000,		//	ChannelA.OP1-4 ON
+
+		0x28, 0x4E,		//	C
+		0x08, 0bx_1111_000,		//	ChannelA.OP1-4 ON
+			Wait 4
+		0x08, 0bx_0000_000,		//	ChannelA.OP1-4 ON
+		End		
+

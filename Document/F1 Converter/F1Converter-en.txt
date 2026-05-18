@@ -1,0 +1,276 @@
+-------------------------------------------------------------------------------
+F1 Converter
+-------------------------------------------------------------------------------
+
+F1 Converter is a tool to convert a text format 
+F1T file (* .f1t) to a binary format F1.
+
+F1 Converter can convert audio files in three formats: 
+vgm, s98, mdx into F1 files and F1T files.
+
+F1 Converter can output a text F1 file for debugging and a text dump file.
+
+When converting vgm, s98, mdx, F1 Converter controls register access 
+according to the target hardware such as data reduction by reducing 
+register access, pitch conversion according to the master clock, 
+simple volume conversion, etc. 
+
+F1 Converter can be uploaded to the flash memory of Arduino Uno R3 and 
+Arduino Mega 2560 R3 serially connected to the PC.
+
+-------------------------------------------------------------------------------
+How to use F1 Converter
+-------------------------------------------------------------------------------
+
+Select the source file with the Brose button.
+Select the file to output with the "Output" checkbox.
+
+If the source file is an F1 file or an F1T file, the 
+"Target Hardware" and "Convert" settings will be invalid.
+
+If the source file is vgm, s98, mdx, you need to specify "Target Hardware".
+The "Convert" setting is enabled.
+
+
+Click the "Convert Upload" button to convert the source file 
+to the specified file format and output it.
+
+When the "Upload" checkbox is selected and Arduino is connected to the PC,
+Download the Arduino flash memory F1 file.
+
+---------------------------------------------------------------
+"Output" checkbox
+---------------------------------------------------------------
+
+Output F1
+Outputs an F1 binary file.
+
+Output F1T
+Outputs an F1T file in text format.
+
+Output Text F1
+Outputs a text file of an F1 binary file
+The text file is primarily intended to check access to registers.
+
+Output Dump
+The F1 binary file is output as a text dump in a form similar to a C language array.
+It is intended to be easy to embed in the program of the target hardware.
+
+If the source file is an F1 binary file
+The only format that can be output is a text dump.
+This is because the F1 file does not contain information such as 
+the type of sound source chip and the clock.
+
+---------------------------------------------------------------
+Target Hardware
+---------------------------------------------------------------
+
+You can choose some hardware.
+The hardware definition is defined in XML in the F1 Converter project, 
+so it can be added or changed with simple editing.
+
+F1 Converter extracts only the data of the sound source chip included in 
+Target Hardware from the sound source chips targeted by the source file.
+An error will occur if the sound source chip targeted by the source file 
+is not included in the Target Hardware hardware.
+
+If the sound source chip targeted by the source file can be replaced with 
+the sound source chip included in Target Hardware, F1 Converter will 
+process and convert the data.
+
+---------------------------------------------------------------
+Convert
+---------------------------------------------------------------
+
+The settings control the register access data during conversion.
+
+TimerReg
+Specifies whether to include the timer of the sound source chip 
+and register access related to interrupts.
+
+UsePCM
+Specifies whether to include ADPCM, DACPCM binary data and register 
+access contained in the source file.
+
+Dual 2nd
+If the target hardware has only one sound source chip and the source file 
+has two of the same sound source chips, specify which sound source 
+chip data should be converted.
+
+YM2612 DAC RunLength
+The waiting time for continuous writing to the YM2612 DAC 
+is compressed by the average value RunLength.
+
+Shrink
+Specifies whether to omit duplicate register access in the source file.
+
+F.Adjust
+The register access value to the pitch register is recalculated by 
+the master clock of the sound source chip and converted to match 
+the pitch of the source file.
+
+Loop
+Specifies the number of F1 loop plays.
+
+Wait x
+Specifies the multiplier for the F1 format wait time.
+
+FM Vol.
+Multiplies the register access value to the volume register of the 
+FM sound source by a coefficient.
+
+SSG Vol.
+Multiplies the register access value to the volume register of the 
+SSG sound source by a coefficient.
+
+---------------------------------------------------------------
+Arduino
+---------------------------------------------------------------
+
+If you have an Arduino connected to your PC 
+Transfer the F1 vinyl file to the Arduino flash memory.
+Compatible with Arduino UNO R3 and Arduino Mega 2560 R3.
+The selection is made on the board in the Tools menu.
+You can search for the serial port from the Tools menu.
+
+Serial Port
+Select the serial port to which your Arduino is connected.
+
+Reset
+Reset the connected Arduino.
+
+Target Address
+Specifies the starting address of the Arduino flash memory 
+that transfers F1 binary files.
+
+Note: My lack of technical skills
+With the Arduino Mega 2560 R3, only binary transfer from the 
+address 0 of the flash memory was possible. Inevitably, 
+the binary from the address 0 to the specified address of the 
+flash memory is transferred to the PC, combined with F1 and 
+then transferred.
+
+---------------------------------------------------------------
+Detailed information
+---------------------------------------------------------------
+Controlling Sound Source Chip Register Access for TimerReg
+---------------------------------------------------------------
+
+If TimerReg is off, remove some of the register access 
+contained in the source file.
+
+YM2151
+Removes access to registers 10H (CLKA1), 11H (CLKA2), 
+12H (CLKB), and 14H (other than the CSM bit).
+
+YM2203, YM2608, YM2612, YM2610, YM2610B, YMF288
+Removes access to registers 24H (TIMER-A), 
+25H (TIMER-A), 26H (TIMER-B), 27H (other than the MODE bit).
+
+YM3526、YM3812
+Remove access to registers 02H (TIMER-1), 03H (TIMER-2), 
+04H (RST, MASK, ST2, ST1).
+
+---------------------------------------------------------------
+Control of UsePCM sound source chip register access
+---------------------------------------------------------------
+
+If Use PCM is off, remove some of the register access 
+contained in the source file. Prevents DAC play data and 
+PCM data blocks contained in the source file from being 
+included in the F1 file.
+
+YM2608
+Remove register access to ADPCM (A1 = 1, 00H to 10H).
+
+YM2610
+Remove the register access to ADPCM-A (A1 = 0, 10H to 1FH) 
+and the register access to ADPCM- (A1 = 1, 00H to 2FH).
+
+YM2612
+Remove register access to the DAC (A1 = 0, 2AH and 2BH).
+
+---------------------------------------------------------------
+Shrink download register management
+---------------------------------------------------------------
+
+YM2151
+Remove the register access that outputs the same value 
+from registers 28H to 37H and 60H to 7FH.
+
+YM2203
+Remove the register access that outputs the same value from 
+registers 06H to 0AH of the SSG part and 40H to 4EH of the 
+FM part. In the FM part pitch registers A0H to A2H and A4H to A6H, 
+the register access that outputs the same value together with 
+the holding state by other register access is removed.
+
+YM2413
+Remove the register access that outputs the same value in 
+registers 00H to 38H.
+
+YM3526、YM3812、YMF262
+Remove the register access that outputs the same value from 
+registers 40H to 55H, A0H to A8H, and B0H to B8H.
+
+AY-3-8910
+Remove the register access that outputs the same value from 
+register 06H to 0AH.
+
+---------------------------------------------------------------
+Control of F.Adjust sound source chip register access
+---------------------------------------------------------------
+
+At the time of conversion, the access value to the pitch 
+register is changed.
+
+For the access value to the pitch register, the frequency is 
+calculated from the master clock value of the sound source chip 
+of the source file (including the prescaler setting value 
+depending on the sound source chip), and the same frequency 
+is set to the master clock value of the sound source chip of 
+the target hardware. Calculate to be.
+
+AY-3-8910 (including OPN's SSG) targets tones, noise and envelopes.
+The SN76489 targets tones and noise.
+The YM2151 does not calculate the frequency. Only mutual 
+conversion using two tables of 3.579575Mhz and 4MHz is supported.
+
+If the master clock value of the source chip of the source file 
+is significantly different from the master clock of the target 
+hardware, it may not be possible to calculate the frequency.
+
+---------------------------------------------------------------
+FM Vol. And SSG Vol.
+---------------------------------------------------------------
+
+In the FM part, the TL value of the oscillator that becomes 
+the carrier is simply multiplied by the set value depending 
+on the combination of operators.
+It does not correspond when the oscillator of the carrier 
+becomes Key-OFF.
+
+In the SSG part, the level value from register 08H to 0AH 
+is simply multiplied by the set value.
+Not valid when the channel is in envelope level mode.
+
+---------------------------------------------------------------
+Control of other sound source chip register access
+---------------------------------------------------------------
+
+At the time of conversion, the test register and unmounted 
+register access of the sound source chip of the target hardware, 
+and the register access (I / O, etc.) that is not related to 
+sound are removed.
+
+If the source file has two FM part 3 channel YM2203s and the 
+target hardware has two FM part 6 channels (YM2608, YM2612, YMF288, etc.), 
+then one sound chip. Change the register access so that the 
+FM part can be played with.
+
+One sound chip if the source file has two FM part 3 channels 
+YM2203 and the target hardware has FM part 6 channels 
+(YM2608, YM2612, YMF288, etc.). Change the register access so 
+that the FM part can be played.
+
+

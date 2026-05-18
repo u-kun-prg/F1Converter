@@ -1,0 +1,204 @@
+-------------------------------------------------------------------------------
+F1T specifications
+-------------------------------------------------------------------------------
+About F1T
+-------------------------------------------------------------------------------
+
+F1T is a textual format for F1 binary files.
+
+F1T is described by register access and command of 
+the sound source chip like F1 binary.
+
+F1T can write the register access of the sound source chip in text.
+
+-------------------------------------------------------------------------------
+Numerical value
+-------------------------------------------------------------------------------
+
+It can be expressed in decimal, hexadecimal, and binary.
+Hexadecimal numbers have 0x prepended to the number.
+Binary numbers have 0b prepended to the number.
+
+In binary, you can use "_" to represent a delimiter and "x" instead of 0.
+
+-------------------------------------------------------------------------------
+Comment
+-------------------------------------------------------------------------------
+
+It can use C-style "/ * * /" comments and "//" comments.
+
+-------------------------------------------------------------------------------
+One-line structure
+-------------------------------------------------------------------------------
+
+It is based on writing one instruction per line with a structure 
+similar to assembly language.
+
+The structure of one line consists of three character strings separated 
+by blanks. The character string at the beginning of the line is called 
+the label, the next character string is called the opcode, and the last 
+character string is called the operand.
+
+White space can use one or more spaces or tabs.
+
+Labels, opcodes, and operands can be omitted.
+If you omit the label, leave the beginning of the line blank.
+
+-------------------------------------------------------------------------------
+Overall structure
+-------------------------------------------------------------------------------
+
+Write the header structure at the beginning, and then write the play 
+data structure.
+
+If necessary, describe the PCM data block structure.
+
+Each structure uses a label to specify the starting line of the structure.
+Only reserved words that indicate the structure can be written on the label.
+
+-------------------------------------------------------------------------------
+Header structure
+-------------------------------------------------------------------------------
+
+The reserved word for the label is "F1 Header:".
+
+In the header structure, the F1 version, loop count, wait time [ns], and 
+16 types of command codes are described in opcodes and operands.
+
+The description method is as follows. (The opcode is a provisional value)
+
+F1Header:
+    Version     1.0     // F1 Version
+    LoopCount   3       // Loop count
+    OneWaitNs   22676   // Wait time[ns]
+    CmdEnd      0xFF    // Command Code  End code
+    CmdA1       0xFE    // Command Code  A1 switching
+    CmdCS       0xFD    // Command Code  CS switching
+    CmdLp       0xFC    // Command Code  Loop Point
+    CmdByteW    0xD0    // Command Code  Waiting interval x 1Byte
+    CmdWordW    0xD1    // Command Code  Waiting interval x 2Bytes
+    CmdW1       0xD2    // Command Code  Waiting interval x 1
+    CmdW2       0xD3    // Command Code  Waiting interval x 2
+    CmdW3       0xD4    // Command Code  Waiting interval x 3
+    CmdW4       0xD5    // Command Code  Waiting interval x 4
+    CmdW5       0xD6    // Command Code  Waiting interval x 5
+    CmdW6       0xD7    // Command Code  Waiting interval x 6
+	CmdWrByteW	0xFF    // Command Code  DAC Write Waiting interval x 1 byte
+	CmdWrRLW    0xFF    // Command Code  DAC Write Waiting interval Run Length
+	CmdWrSeek   0xFF    // Command Code  DAC PCM Seek
+    CmdF0       0xFF    // Command Code  Free 0
+    CmdF1       0xFF    // Command Code  Free 1
+    CmdF2       0xFF    // Command Code  Free 2
+    CmdF3       0xFF    // Command Code  Free 3
+    CmdF4       0xFF    // Command Code  Free 4
+
+That's all the opcodes you need for the header.
+You can change the order, but if the order is not enough, an error will occur.
+
+The version lists the major version and the minor version separated by periods.
+
+The "offset to the PCM data block" required by F1 binary is calculated and 
+embedded when converting to F1 binary.
+-------------------------------------------------------------------------------
+Play data structure
+-------------------------------------------------------------------------------
+The reserved word for the label is "F1PlayData:".
+
+For play data, command data and register access data are arranged 
+in order according to the music playback.
+
+------------------------------------
+Command data
+------------------------------------
+
+End
+
+    The song is over.
+    If the loop point is placed in the play data, the playback position is 
+    moved to the loop point. The number of loops is specified in the header.
+
+ChCS    [CS number]
+
+    Change the sound source chip to be accessed to the value of the CS number.
+
+
+ChA1    [A1 number]
+
+    Change the A1 flag of the sound source chip to the A1 number.
+
+
+LoopPoint
+
+    This command specifies the loop position of a song in the play data.
+
+
+Wait   [waiting time]
+
+    From the PCM binary pointer, 1 byte of data is output to the sound 
+    source chip, and the waiting time interval in the play data is 
+    specified by the waiting time.
+    The waiting time interval is "waiting time [ns]" x [waiting time] 
+    in the header.
+
+WrWait [waiting time], [number of repetitions]
+
+    From the PCM binary pointer, 1 byte of data is output to the sound 
+    source chip, and the waiting time interval in the play data is 
+    specified by the waiting time.
+    The waiting time interval is "waiting time [ns]" x [waiting time] 
+    in the header.
+    Output and wait are repeated the specified number of times.
+
+WrSeek   [address]
+
+    Set the PCM binary pointer to [Address].
+    The address is the offset in the PCM data.
+
+------------------------------------
+Register access data opcode
+------------------------------------
+
+    Since the structure of register access data differs depending on the 
+    sound source chip, enter a numerical value in the opcode.
+    You can enter multiple numbers separated by commas.
+
+2-byte register number and value example
+        0x0A, 0x00, // Write the number 00 to register 0A
+        0x10, 0xBF,	// Write the number BF to register 10
+
+Example of 1 byte value only
+        0x80,       // Write the number 80 to the sound source chip
+        0x00,       // Write the number 00 to the sound source chip
+
+-------------------------------------------------------------------------------
+PCM data block structure
+-------------------------------------------------------------------------------
+
+The reserved word for the label is "F1PcmData:".
+
+------------------------------------
+PCM data block header
+------------------------------------
+
+For the opcode, specify the chip select value, data type, and 
+start address in the operand with "PcmHeader" separated by commas.
+
+example:
+
+    PcmHeader    0, 0x00, 0x00000000
+
+The chip select value is the number of the sound source chip that 
+uses the PCM play data.
+The data type is the identification value of the PCM function installed 
+in the sound source chip and depends on the sound source chip.
+The start address specifies the memory address on the target hardware 
+where you want to load the PCM binary data.
+
+------------------------------------
+PCM data block binary
+------------------------------------
+
+data   [binary] .....
+
+List the binary data in byte values, separated by commas.
+
