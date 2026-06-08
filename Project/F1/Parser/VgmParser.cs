@@ -15,7 +15,8 @@ namespace F1
 		private int m_vgmVersion;
 		private int m_sourceAddress;
 		private int m_vgmStartAddress;
-		private int m_m6258SamplingRate;
+
+		private int m_m6258SamplingRate = 15625;
 
 		/// <summary>
 		///	VGM ストリームのクラス
@@ -44,10 +45,7 @@ namespace F1
 		/// </summary>
 		public override bool Parse()
 		{
-			int loopPoint_address = 0;
 			uint tmp_d0 = 0;
-
-			m_m6258SamplingRate = 15625;
 
 			//	F1 ヘッダーのサンプル時間に VGM の WAIT時間を設定
 			Header.SetOneCycleNs(VGM_ONE_WAIT);
@@ -64,10 +62,8 @@ namespace F1
 
 			//	VGM ヘッダーのループポイントを取得
 			if (!GetVgmHeaderData( 0x1C, DataSize.DL, false, out tmp_d0)) return false;
-			if (tmp_d0 != 0 )
-			{
-				loopPoint_address = (int)(tmp_d0 + 0x1C);
-			}
+			var loopPoint_address = (tmp_d0 != 0 ) ? ((int)(tmp_d0 + 0x1C)) : 0;
+
 			//	VGM ヘッダーを解析
 			if (!ParseVgmHeaderChip()) return false;
 
@@ -323,8 +319,25 @@ namespace F1
 		/// <summary>
 		///	VGM コマンド	データブロックの解析
 		/// </summary>
+		private class DataBlockToImData
+		{
+			public DataBlockToImData(int chipSelect, PcmDataType pcmDataType, int blkStartAddress, int blkDataSize, int blkDataAddess)
+			{
+				this.chipSelect = chipSelect;
+				this.pcmDataType = pcmDataType;
+				this.blkStartAddress = blkStartAddress;
+				this.blkDataSize = blkDataSize;
+				this.blkDataAddess = blkDataAddess;
+			}
+			public int chipSelect;
+			public PcmDataType pcmDataType;
+			public int blkStartAddress;
+			public int blkDataSize;
+			public int blkDataAddess;
+		}
 		private bool ParseVGMDataBLock()
 		{
+			var dataBlockToImDataList = new List<DataBlockToImData>();
 			//	チップセレクトで、格納アドレスを保持しておく
 			Dictionary<int, int>startAddressDict = new Dictionary<int, int>();
 
@@ -396,8 +409,6 @@ namespace F1
 				//	BLK データタイプの設定
 				var dataBlockTypeSetting = DataBlockTypeSettingDict[blk_dataType];
 
-				//	ループ後にデータブロックを取り込めたか？フラグ
-				var isReadyDataBlock = false;
 				//	パース CHIP（アクティブで DUALナンバーがなし or １つ目）でループ
 				foreach(var parseChip in m_parseChipList.Where(x => x.ChipActiveStatus == ActiveStatus.ACTIVE && x.ChipDualNumber != DualNumber.Dual2nd))
 				{
@@ -435,25 +446,37 @@ namespace F1
 							startAddressDict[targetChip.ChipSelect] += blk_dataSize;
 						}
 					}
-					//	PCM データのバイナリを取り込む
-					byte[] tmpPcmDataBuff = new byte[blk_dataSize];
-					for (int i = 0; i < blk_dataSize; i ++) 
-					{
-						if (!GetSourceData(blk_dataAddress, DataSize.DB, false, out tmpData)) return false;
-						blk_dataAddress += 1;
-						tmpPcmDataBuff[i] = (byte)tmpData;
-					}
-					//	PCM中間にデータブロックを追加する
-					ImData.AddPcmImDataList(targetChip.ChipSelect, dataBlockTypeSetting.m_pcmDataType, (int)dataBlockStartAddress, blk_dataSize, tmpPcmDataBuff);
-					//	BLK データを取り込んだ
-					isReadyDataBlock = true;
+					dataBlockToImDataList.Add(new DataBlockToImData(targetChip.ChipSelect, dataBlockTypeSetting.m_pcmDataType, (int)dataBlockStartAddress, blk_dataSize, blk_dataAddress));
 					break;
 				}
-				//	BLK データを取り込めなかった場合は、データブロックを読み飛ばす
-				if (!isReadyDataBlock)
-				{
+			}
+
+			for (int parseIndex = 0, pl = m_parseChipList.Count; parseIndex < pl; parseIndex ++)
+			{
+				var parseChip = m_parseChipList[parseIndex];
+				if (parseChip.ChipActiveStatus != ActiveStatus.ACTIVE)
+				{	//	アクティブでないパース CHIP は無視する
 					continue;
 				}
+				if (dataBlockToImDataList.FindIndex(x => x.chipSelect == parseChip.ChipSelect) < 0)
+				{
+					PcmDeactiveParseChipAndTargetChip(parseChip);
+				}
+			}
+			foreach (var dataBlockToImData in dataBlockToImDataList)
+			{
+				uint tmpData = 0;
+				var blk_dataSize = dataBlockToImData.blkDataSize;
+				var blk_dataAddress = dataBlockToImData.blkDataAddess;
+				byte[] tmpPcmDataBuff = new byte[blk_dataSize];
+				for (int i = 0; i < blk_dataSize; i ++) 
+				{
+					if (!GetSourceData(blk_dataAddress, DataSize.DB, false, out tmpData)) return false;
+					blk_dataAddress += 1;
+					tmpPcmDataBuff[i] = (byte)tmpData;
+				}
+				//	PCM中間にデータブロックを追加する
+				ImData.AddPcmImDataList(dataBlockToImData.chipSelect, dataBlockToImData.pcmDataType, dataBlockToImData.blkStartAddress, blk_dataSize, tmpPcmDataBuff);
 			}
 			return true;
 		}

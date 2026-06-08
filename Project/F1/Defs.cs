@@ -130,7 +130,7 @@ namespace F1
 			}
 			return PcmFunctionType.NONE;
 		}
-		public static readonly Dictionary<ChipType, PcmFunctionType> ChipPcmFunctionDict = new Dictionary<ChipType, PcmFunctionType>()
+		private static readonly Dictionary<ChipType, PcmFunctionType> ChipPcmFunctionDict = new Dictionary<ChipType, PcmFunctionType>()
 		{
 			{ ChipType.YM2151,		PcmFunctionType.NONE		},	//	OPM
 			{ ChipType.YM2203,		PcmFunctionType.NONE		},	//	OPN

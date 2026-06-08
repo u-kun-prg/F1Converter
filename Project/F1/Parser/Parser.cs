@@ -285,29 +285,28 @@ namespace F1
 			targetChip.Active(parseChip.ChipType, parseChip.ChipClock, parseChip.ChipName, isPcmActive);
 		}
 		/// <summary>
-		///	パース CHIP とターゲット CHIP の PCM を非アクティブにする	PCM データが存在しない場合
+		///	PCMパース CHIP とターゲット CHIP の PCM を非アクティブにする	PCM データが存在しない場合
 		/// </summary>
-		protected void PcmDeactiveParseChipAndTargetChip()
+		protected void PcmDeactiveParseChipAndTargetChip(ParseChip parseChip)
 		{
-			for (int parseIndex = 0, pl = m_parseChipList.Count; parseIndex < pl; parseIndex ++)
+			if (parseChip.ChipActiveStatus == ActiveStatus.ACTIVE)
 			{
-				var parseChip = m_parseChipList[parseIndex];
-				if (parseChip.ChipActiveStatus != ActiveStatus.ACTIVE)
-				{	//	アクティブでないパース CHIP は無視する
-					continue;
-				}
 				var targetChip = TargetHardware.TargetChipList[parseChip.ChipSelect];
-				if (targetChip.TargetPcmFunction == PcmFunctionType.PCM_ONLY || targetChip.TargetPcmFunction == PcmFunctionType.DAC_ONLY)
-				{	//	PCM 機能だけ、DAC 機能だけのターゲット CHIP はパース CHIP もろとも非アクティブにする
-					DeactivateParseChipAndTargetChip(parseChip);
-				}
-				else
-				{   //	ターゲット CHIP の PCM を非アクティブにする
-					targetChip.DeactivatePcm();
+				switch(targetChip.TargetPcmFunction)
+				{
+					case PcmFunctionType.NONE:
+						break;
+					case PcmFunctionType.HAS_PCM:	//	他音源機能と PCM 機能を持つ
+					case PcmFunctionType.HAS_DAC:	//	他音源機能と DAC 機能を持つ
+						targetChip.DeactivatePcm();
+						break;
+					case PcmFunctionType.PCM_ONLY:	//	PCM 機能だけを持つ
+					case PcmFunctionType.DAC_ONLY:	//	DAC 機能だけを持つ
+						DeactivateParseChipAndTargetChip(parseChip);
+						break;
 				}
 			}
 		}
-
 		/// <summary>
 		///	パース CHIP とターゲット CHIPを非アクティブにする
 		/// </summary>

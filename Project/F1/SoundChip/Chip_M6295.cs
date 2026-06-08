@@ -29,7 +29,7 @@ namespace F1
 					break;
 
 				case ChipType.M6258:
-					if (m_imData.PcmImDataList.Count(x=>x.m_chipSelect == m_targetChip.ChipSelect) > 0)
+					if (m_targetChip.TargetActiveStatus == ActiveStatus.ACTIVE)
 					{
 						M6528ToM6295_CheckSamplingRate();
 						M6528ToM6295_PcmDataConvert();

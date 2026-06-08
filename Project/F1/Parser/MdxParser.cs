@@ -83,8 +83,11 @@ namespace F1
 			m_m6258SamplingRate = 0;
 
 			//	パース CHIP 情報
-			m_parseChipList.Add(new ParseChip(ChipType.YM2151, MDX_YM2151_CLOCK, 0, 0));
-			m_parseChipList.Add(new ParseChip(ChipType.M6258, MDX_M6258_CLOCK, 0, 0));
+			var parseChip_ym2151 = new ParseChip(ChipType.YM2151, MDX_YM2151_CLOCK, 0, 0);
+			var parseChip_m6258  =new ParseChip(ChipType.M6258, MDX_M6258_CLOCK, 0, 0); 
+			m_parseChipList.Add(parseChip_ym2151);
+			m_parseChipList.Add(parseChip_m6258);
+
 			//	パース CHIP をターゲット CHIP に反映
 			ReflectParseChipToTargetChip();
 
@@ -95,8 +98,8 @@ namespace F1
 				return false;
 			}
 
-			m_ym2151CS =m_parseChipList[0].ChipSelect;
-			m_m6258CS =m_parseChipList[1].ChipSelect;
+			m_ym2151CS = parseChip_ym2151.ChipSelect;
+			m_m6258CS = parseChip_m6258.ChipSelect;
 			m_mdxIsUsePCM = (m_m6258CS >=0) ? TargetHardware.GetTargetIsPcmActive(m_m6258CS) : false;
 			var keepMmdxIsUsePCM = m_mdxIsUsePCM;
 
@@ -138,7 +141,8 @@ namespace F1
 						}
 						else
 						{
-							DeactivateMdxPcm();
+							m_mdxIsUsePCM = false;
+							PcmDeactiveParseChipAndTargetChip(parseChip_m6258);
 						}
 						mdx_base_address = source_address;
 						break;
@@ -160,7 +164,8 @@ namespace F1
 				}
 				catch(Exception)
 				{
-					DeactivateMdxPcm();
+					m_mdxIsUsePCM = false;
+					PcmDeactiveParseChipAndTargetChip(parseChip_m6258);
 					AddWarningString($"WARNING : MDX Pdx File can not Read. File Name:{m_pdxFileName}.");
 				}
 			}
@@ -185,7 +190,8 @@ namespace F1
 				if (!GetSourceData((mdx_base_address + (int)tmp_d0), DataSize.DB, true, out tmp_d0)) return false;
 				if (tmp_d0 == 0xE8)
 				{	//	PCM4/8 は対応しない
-					DeactivateMdxPcm();
+					m_mdxIsUsePCM = false;
+					PcmDeactiveParseChipAndTargetChip(parseChip_m6258);
 					AddWarningString("WARNING : MDX PCM8/PCM4 Not Supported. pcmOFF.");
 				}
 			}
@@ -200,13 +206,15 @@ namespace F1
 					uint start = 0;
 					uint size = 0;
 					if (!GetPdxBinary(headerIndex,     DataSize.DL, out start)) 
-					{
-						DeactivateMdxPcm();
+					{	//	スタートが取得できない場合、M6258 PCM を非アクティブにする
+						m_mdxIsUsePCM = false;
+						PcmDeactiveParseChipAndTargetChip(parseChip_m6258);
 						break;
 					}
 					if (!GetPdxBinary(headerIndex + 6, DataSize.DW, out size))
-					{
-						DeactivateMdxPcm();
+					{	//	サイズが取得できない場合、M6258 PCM を非アクティブにする
+						m_mdxIsUsePCM = false;
+						PcmDeactiveParseChipAndTargetChip(parseChip_m6258);
 						break;
 					}
 					headerIndex += 8;
@@ -223,8 +231,9 @@ namespace F1
 						{
 							uint pcmData = 0;
 							if (!GetPdxBinary(pcmDataIndex, DataSize.DB, out pcmData))
-							{
-								DeactivateMdxPcm();
+							{	//データサイズが合わない場合、M6258 PCM を非アクティブにする
+								m_mdxIsUsePCM = false;
+								PcmDeactiveParseChipAndTargetChip(parseChip_m6258);
 								break;
 							}
 							pdxData.m_pcmBinaryArray[j] = (byte)pcmData;
@@ -294,21 +303,14 @@ namespace F1
 					{
 						playImData.m_imType = F1ImData.PlayImType.NONE;
 					}
+					//	M6258 PCM を非アクティブにする
 					m_isUsePDX = false;
-					DeactivateMdxPcm(); 
+					m_mdxIsUsePCM = false;
+					PcmDeactiveParseChipAndTargetChip(parseChip_m6258);
 				}
 			}
 			CreateResultMessage();
 			return true;
-		}
-
-		///	<summary>
-		///	PCM を非アクティブにする
-		/// </summary>
-		private void DeactivateMdxPcm()
-		{
-			m_mdxIsUsePCM = false;
-			PcmDeactiveParseChipAndTargetChip();
 		}
 
 		///	<summary>
