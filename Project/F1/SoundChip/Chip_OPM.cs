@@ -209,6 +209,14 @@ namespace F1
 				playImData.m_imType = F1ImData.PlayImType.NONE;
 				return false;
 			}
+			if (playImData.m_data0 == 0x01)
+			{
+				if ((playImData.m_data1 & 0x2) != 0)
+				{
+					playImData.m_imType = F1ImData.PlayImType.NONE;
+					return false;
+				}
+			}
 			foreach(var ncReg in YM2151_NC_REG)
 			{
 				if (playImData.m_data0 == ncReg)
@@ -224,7 +232,7 @@ namespace F1
 		/// </summary>
 		private readonly byte[] YM2151_NC_REG = 
 		{
-			0x00, 0x01,	//	0x01 Test
+			0x00, 	//	0x01 Test
 			0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 
 			0x13, 0x15, 0x16, 0x17, 0x1A, 0x1C, 0x1D, 0x1E, 0x1F,
 		};
