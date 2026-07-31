@@ -7,6 +7,7 @@
     		<targetchip>YM2151</targetchip>
     		<targetclock>3579545 4000000</targetclock>
     		<targettopcode>100</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
   	</target>
   	<target>
@@ -16,6 +17,7 @@
     		<targetchip>YM2203</targetchip>
     		<targetclock>4000000 3993600 3579545</targetclock>
     		<targettopcode>100</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
   	</target>
   	<target>
@@ -25,6 +27,7 @@
     		<targetchip>YM2608</targetchip>
     		<targetclock>7987200 8000000</targetclock>
     		<targettopcode>100</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
   	</target>
   	<target>
@@ -34,6 +37,7 @@
     		<targetchip>YM2612</targetchip>
     		<targetclock>7670453 8000000</targetclock>
     		<targettopcode>100</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
   	</target>
   	<target>
@@ -43,6 +47,7 @@
     		<targetchip>YM2610</targetchip>
     		<targetclock>8000000</targetclock>
     		<targettopcode>100</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
   	</target>
   	<target>
@@ -52,6 +57,7 @@
     		<targetchip>YM2610B</targetchip>
     		<targetclock>8000000</targetclock>
     		<targettopcode>100</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
   	</target>
   	<target>
@@ -61,6 +67,7 @@
     		<targetchip>YMF288</targetchip>
     		<targetclock>7987200 8000000</targetclock>
     		<targettopcode>100</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
   	</target>
   	<target>
@@ -70,6 +77,7 @@
     		<targetchip>YM3526</targetchip>
     		<targetclock>3579545 4000000</targetclock>
     		<targettopcode>100</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
   	</target>
   	<target>
@@ -79,6 +87,7 @@
     		<targetchip>YM3812</targetchip>
     		<targetclock>3579545 4000000</targetclock>
     		<targettopcode>100</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
   	</target>
   	<target>
@@ -88,6 +97,7 @@
     		<targetchip>YMF262</targetchip>
     		<targetclock>14318180</targetclock>
     		<targettopcode>100</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
   	</target>
   	<target>
@@ -97,6 +107,7 @@
     		<targetchip>YM2413</targetchip>
     		<targetclock>3579545</targetclock>
     		<targettopcode>100</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
   	</target>
   	<target>
@@ -106,11 +117,13 @@
     		<targetchip>SN76489</targetchip>
     		<targetclock>4000000</targetclock>
     		<targettopcode>100</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
     	<chips>
     		<targetchip>SN76489</targetchip>
     		<targetclock>4000000</targetclock>
     		<targettopcode>100</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
   	</target>
   	<target>
@@ -120,11 +133,13 @@
     		<targetchip>YM2612</targetchip>
     		<targetclock>7670453</targetclock>
     		<targettopcode>100</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
     	<chips>
     		<targetchip>SN76489</targetchip>
     		<targetclock>3579545</targetclock>
     		<targettopcode>100</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
   	</target>
   	<target>
@@ -134,11 +149,13 @@
     		<targetchip>AY_3_8910</targetchip>
     		<targetclock>1789772</targetclock>
     		<targettopcode>100</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
     	<chips>
     		<targetchip>K051649</targetchip>
     		<targetclock>3579545</targetclock>
     		<targettopcode>100</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
   	</target>
   	<target>
@@ -148,11 +165,13 @@
     		<targetchip>AY_3_8910</targetchip>
     		<targetclock>1789772</targetclock>
     		<targettopcode>100</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
     	<chips>
     		<targetchip>K052539</targetchip>
     		<targetclock>3579545</targetclock>
     		<targettopcode>100</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
   	</target>
   	<target>
@@ -162,11 +181,13 @@
     		<targetchip>AY_3_8910</targetchip>
     		<targetclock>1789772</targetclock>
     		<targettopcode>100</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
     	<chips>
     		<targetchip>YM2413</targetchip>
     		<targetclock>3579545</targetclock>
     		<targettopcode>100</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
   	</target>
   	<target>
@@ -176,11 +197,13 @@
     		<targetchip>YM2203</targetchip>
     		<targetclock>3993600 1996800 4000000 3579545</targetclock>
     		<targettopcode>100</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
     	<chips>
     		<targetchip>YM2203</targetchip>
     		<targetclock>3993600 1996800 4000000 3579545</targetclock>
     		<targettopcode>100</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
   	</target>
 <!--
@@ -191,11 +214,13 @@
     		<targetchip>YM2151</targetchip>
     		<targetclock>3579545</targetclock>
     		<targettopcode>100</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
     	<chips>
     		<targetchip>M6258</targetchip>
     		<targetclock>8000000</targetclock>
     		<targettopcode>0E</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
   	</target>
 -->
@@ -206,11 +231,13 @@
     		<targetchip>YM2151</targetchip>
     		<targetclock>3579545</targetclock>
     		<targettopcode>100</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
     	<chips>
     		<targetchip>M6295</targetchip>
     		<targetclock>1000000</targetclock>
     		<targettopcode>0E</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
   	</target>
   	<target>
@@ -220,11 +247,13 @@
     		<targetchip>YM2151</targetchip>
     		<targetclock>3579545</targetclock>
     		<targettopcode>100</targettopcode>
+    		<targetTempOffset>100</targetTempOffset>
     	</chips>
     	<chips>
     		<targetchip>K053260</targetchip>
     		<targetclock>3579545</targetclock>
-    		<targettopcode>0E</targettopcode>
+    		<targettopcode>100</targettopcode>
+    		<targetTempOffset>40</targetTempOffset>
     	</chips>
   	</target>
 </targetlist>

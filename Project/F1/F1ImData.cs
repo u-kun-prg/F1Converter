@@ -30,6 +30,11 @@ namespace F1
 		public List<int>TopCodeCSList  { get; private set; }
 
 		///	<summary>
+		///	Chip Seclect ごとの TempOffset 
+		///	</summary>
+		public List<int>TempOffsetCSList  { get; private set; }
+
+		///	<summary>
 		///	Chip Seclect ごとの １CHIP でデュアル CHIP に対応フラグ
 		///	</summary>
 		public Dictionary<int, bool>IsDualIn1ChipCSDict { get; private set; }
@@ -67,12 +72,13 @@ namespace F1
 		///	<summary>
 		///	コンストラクタ
 		///	</summary>
-		public F1ImData(bool isYM2612DacRL, List<int> topCodeList, bool isToneAdjust, bool isShrink, bool isDual2nd, bool isTimerReg, int fmVol, int ssgVol )
+		public F1ImData(bool isYM2612DacRL, List<int> topCodeList, List<int> tempOffsetList, bool isToneAdjust, bool isShrink, bool isDual2nd, bool isTimerReg, int fmVol, int ssgVol )
 		{
 			this.PlayImDataList = new List<PlayImData>();
 			this.PcmImDataList = new List<PcmImData>();
 			this.IsYM2612DacRL = isYM2612DacRL;
 			this.TopCodeCSList = new List<int>(topCodeList);
+			this.TempOffsetCSList = new List<int>(tempOffsetList);
 			this.IsDualIn1ChipCSDict = new Dictionary<int,bool>();
 			this.IsToneAdjust = isToneAdjust;
 			this.IsShrink = isShrink;

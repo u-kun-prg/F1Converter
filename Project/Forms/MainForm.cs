@@ -236,12 +236,14 @@ namespace F1Converter
 			var chipNameList = new List<string>();
 			var chipClockList = new List<int>();
 			var targetTopCodeList = new List<int>();
+			var targetTempOffsetList = new List<int>();
 			{
 				for (int i=0, l = FormTargetList[cmbBoxTarget.SelectedIndex].formTargetChips.Count; i<l; i++)
 				{
 					chipNameList.Add(FormTargetList[cmbBoxTarget.SelectedIndex].formTargetChips[i].chipName);
 					chipClockList.Add(FormTargetList[cmbBoxTarget.SelectedIndex].formTargetChips[i].chipClock);
 					targetTopCodeList.Add(FormTargetList[cmbBoxTarget.SelectedIndex].formTargetChips[i].chipTopCode);
+					targetTempOffsetList.Add(FormTargetList[cmbBoxTarget.SelectedIndex].formTargetChips[i].chipTempOffset);
 				}
 			}
 			F1Convert f1_convert = new F1Convert();
@@ -265,6 +267,7 @@ namespace F1Converter
 									chipNameList,
 									chipClockList,
 									targetTopCodeList,
+									targetTempOffsetList,
 									chkBoxClockAdjust.Checked, 
 									chkBoxShrink.Checked, 
 									chkBoxDual2nd.Checked, 
@@ -674,6 +677,10 @@ namespace F1Converter
 						else if (reader.Name == "targettopcode")
 						{
 							lastFormTargetChip.chipTopCode = Convert.ToInt32(lasttext, 16);
+						}
+						else if (reader.Name == "targetTempOffset")
+						{
+							lastFormTargetChip.chipTempOffset = Convert.ToInt32(lasttext, 16);
 						}
 						else if (reader.Name == "chips")
 						{

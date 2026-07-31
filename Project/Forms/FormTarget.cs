@@ -12,6 +12,7 @@ namespace F1Converter
 		public List<int> usableClocks = new List<int>();
 		public int chipClock;
 		public int chipTopCode;
+		public int chipTempOffset;
 		public int selectedIndex;
 	}
 

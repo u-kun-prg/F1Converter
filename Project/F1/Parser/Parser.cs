@@ -16,6 +16,7 @@ namespace F1
 		protected byte[] BinaryArray { get; private set; }
 		protected string[] TextArray { get; private set; }
 		protected bool DisableTopCode { get; private set; }
+		protected bool DisableTempOffset { get; private set; }
 
 		public List<string> WarningStrings = new List<string>();
 		public string ErrorString { get; protected set; }
@@ -24,13 +25,14 @@ namespace F1
 		/// <summary>
 		///	パーサーの初期化
 		/// </summary>
-		public void Initialize(string sourceFileName, F1TargetHardware targetHardware, F1Header header, F1ImData imData, bool isOffTopCode, byte[] binaryArray, string[] textArray)
+		public void Initialize(string sourceFileName, F1TargetHardware targetHardware, F1Header header, F1ImData imData, bool isOffTopCode, bool isTempOffset, byte[] binaryArray, string[] textArray)
 		{
 			SourceFileName = sourceFileName;
 			TargetHardware = targetHardware;
 			Header = header;
 			ImData = imData;
 			DisableTopCode = isOffTopCode;
+			DisableTempOffset = isTempOffset;
 			BinaryArray = binaryArray;
 			TextArray = textArray;
 		}

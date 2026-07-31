@@ -65,7 +65,16 @@ namespace F1
 							{
 								playDataList.Add((byte)(imData.TopCodeCSList[chipSelect] & 0xFF));
 							}
-							playDataList.Add(playImData.m_data0);
+							if (imData.TempOffsetCSList[chipSelect] < 0x100)
+							{
+								byte tempData = (byte)(imData.TempOffsetCSList[chipSelect]);
+								tempData += playImData.m_data0;
+								playDataList.Add(tempData);
+							}
+							else
+							{
+								playDataList.Add(playImData.m_data0);
+							}
 							playDataList.Add(playImData.m_data1);
 							break;
 						case F1ImData.PlayImType.ONE_DATA:
@@ -99,7 +108,16 @@ namespace F1
 							{
 								playDataList.Add((byte)(imData.TopCodeCSList[chipSelect] & 0xFF));
 							}
-							playDataList.Add(playImData.m_data0);
+							if (imData.TempOffsetCSList[chipSelect] < 0x100)
+							{
+								byte tempData = (byte)(imData.TempOffsetCSList[chipSelect]);
+								tempData += playImData.m_data0;
+								playDataList.Add(tempData);
+							}
+							else
+							{
+								playDataList.Add(playImData.m_data0);
+							}
 							break;
 						case F1ImData.PlayImType.VSTRM_DATA:
 							if (chipSelect != playImData.m_chipSelect)
@@ -119,7 +137,16 @@ namespace F1
 							{
 								playDataList.Add((byte)(imData.TopCodeCSList[chipSelect] & 0xFF));
 							}
-							playDataList.Add(playImData.m_data0);
+							if (imData.TempOffsetCSList[chipSelect] < 0x100)
+							{
+								byte tempData = (byte)(imData.TempOffsetCSList[chipSelect]);
+								tempData += playImData.m_data0;
+								playDataList.Add(tempData);
+							}
+							else
+							{
+								playDataList.Add(playImData.m_data0);
+							}
 							playDataList.Add(playImData.m_data1);
 							playDataList.Add(playImData.m_vStrmStepBase);
 							playDataList.Add(playImData.m_vStrmStepSize);
@@ -142,7 +169,16 @@ namespace F1
 							{
 								playDataList.Add((byte)(imData.TopCodeCSList[chipSelect] & 0xFF));
 							}
-							playDataList.Add(playImData.m_data0);
+							if (imData.TempOffsetCSList[chipSelect] < 0x100)
+							{
+								byte tempData = (byte)(imData.TempOffsetCSList[chipSelect]);
+								tempData += playImData.m_data0;
+								playDataList.Add(tempData);
+							}
+							else
+							{
+								playDataList.Add(playImData.m_data0);
+							}
 							playDataList.Add(playImData.m_data1);
 							playDataList.Add((byte)(((playImData.m_vStrmSamplingRate & 0xFF000000) >> 24) & 0xFF));
 							playDataList.Add((byte)(((playImData.m_vStrmSamplingRate & 0x00FF0000) >> 16) & 0xFF));
@@ -167,7 +203,16 @@ namespace F1
 							{
 								playDataList.Add((byte)(imData.TopCodeCSList[chipSelect] & 0xFF));
 							}
-							playDataList.Add(playImData.m_data0);
+							if (imData.TempOffsetCSList[chipSelect] < 0x100)
+							{
+								byte tempData = (byte)(imData.TempOffsetCSList[chipSelect]);
+								tempData += playImData.m_data0;
+								playDataList.Add(tempData);
+							}
+							else
+							{
+								playDataList.Add(playImData.m_data0);
+							}
 							playDataList.Add(playImData.m_data1);
 							playDataList.Add(playImData.m_vStrmFlagMode);
 							playDataList.Add((byte)(((playImData.m_vStrmStart & 0xFF000000) >> 24) & 0xFF));
@@ -197,7 +242,16 @@ namespace F1
 							{
 								playDataList.Add((byte)(imData.TopCodeCSList[chipSelect] & 0xFF));
 							}
-							playDataList.Add(playImData.m_data0);
+							if (imData.TempOffsetCSList[chipSelect] < 0x100)
+							{
+								byte tempData = (byte)(imData.TempOffsetCSList[chipSelect]);
+								tempData += playImData.m_data0;
+								playDataList.Add(tempData);
+							}
+							else
+							{
+								playDataList.Add(playImData.m_data0);
+							}
 							playDataList.Add(playImData.m_data1);
 							break;
 						case F1ImData.PlayImType.VSTRM_START_SIZE_FAST:
@@ -218,7 +272,16 @@ namespace F1
 							{
 								playDataList.Add((byte)(imData.TopCodeCSList[chipSelect] & 0xFF));
 							}
-							playDataList.Add(playImData.m_data0);
+							if (imData.TempOffsetCSList[chipSelect] < 0x100)
+							{
+								byte tempData = (byte)(imData.TempOffsetCSList[chipSelect]);
+								tempData += playImData.m_data0;
+								playDataList.Add(tempData);
+							}
+							else
+							{
+								playDataList.Add(playImData.m_data0);
+							}
 							playDataList.Add(playImData.m_data1);
 							playDataList.Add((byte)(((playImData.m_vStrmBlockId & 0x0000FF00) >>  8) & 0xFF));
 							playDataList.Add((byte) ((playImData.m_vStrmBlockId & 0x000000FF)        & 0xFF));

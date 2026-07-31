@@ -27,6 +27,7 @@ namespace F1
 								List<string> chipNameList,
 								List<int> chipClockList,
 								List<int> targetTopCodeList,
+								List<int> tempOffsetList,
 								bool isToneAdjust, 
 								bool isShrink, 
 								bool isDual2nd, 
@@ -67,7 +68,7 @@ namespace F1
 			header.SetLoopCount((uint)loopNum);
 
 			//	F1 中間データを生成
-			F1ImData imData = new F1ImData(isYM2612DacRL, targetTopCodeList, isToneAdjust, isShrink, isDual2nd, isTimerReg, fmVolDown, ssgVolAdd);
+			F1ImData imData = new F1ImData(isYM2612DacRL, targetTopCodeList, tempOffsetList, isToneAdjust, isShrink, isDual2nd, isTimerReg, fmVolDown, ssgVolAdd);
 
 			//	ソースファイルを中間データにパースする
 			SourceFormat sourceFormat = ParseSouceFileToImData(targetHardware, header, imData, sourceFileName, f1DataList);
@@ -190,6 +191,7 @@ namespace F1
 			SourceFormat sourceFormat = ReadSourceFile(sourceFileName, out binaryArray, out textArray);
 			Parser parser;
 			bool isOffTopCode = false;
+			bool isTempOffset = false;
 			switch(sourceFormat)
 			{
 				case SourceFormat.F1:
@@ -204,6 +206,7 @@ namespace F1
 				case SourceFormat.F1T:
 					parser = new F1TParser();
 					isOffTopCode = true;
+					isTempOffset = true;
 					break;
 
 				case SourceFormat.S98:
@@ -224,7 +227,7 @@ namespace F1
 			}
 
 			//	Parse Source.
-			parser.Initialize(sourceFileName, targetHardware, header, imData, isOffTopCode, binaryArray, textArray);
+			parser.Initialize(sourceFileName, targetHardware, header, imData, isOffTopCode, isTempOffset, binaryArray, textArray);
 			if (!parser.Parse())
 			{
 				//	Parse Error.
