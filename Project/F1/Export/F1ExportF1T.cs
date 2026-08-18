@@ -107,7 +107,7 @@ namespace F1
 								AddTextData("", F1TReservedWord.F1TPlayDataOpecodeStrings[(int)F1TReservedWord.F1TPlayDataOpecode.A1], $"{a1s[chipSelect]}");
 							}
 						}
-						tmpData0 = (imData.TempOffsetCSList[chipSelect] > 0x100) ? ((int)playImData.m_data0) : ((int)(playImData.m_data0)+imData.TempOffsetCSList[chipSelect]);
+						tmpData0 = (imData.TempOffsetCSList[chipSelect] >= 0x100) ? ((int)playImData.m_data0) : ((int)(playImData.m_data0)+imData.TempOffsetCSList[chipSelect]);
 						if (imData.TopCodeCSList[chipSelect] < 0x100)
 						{
 							AddTextData("",$"\t0x{(imData.TopCodeCSList[chipSelect] & 0xFF):X2}, 0x{tmpData0:X2}, 0x{playImData.m_data1:X2},","");
@@ -142,7 +142,7 @@ namespace F1
 								AddTextData("", F1TReservedWord.F1TPlayDataOpecodeStrings[(int)F1TReservedWord.F1TPlayDataOpecode.A1],$"{a1s[chipSelect]}");
 							}
 						}
-						tmpData0 = (imData.TempOffsetCSList[chipSelect] > 0x100) ? ((int)playImData.m_data0) : ((int)(playImData.m_data0)+imData.TempOffsetCSList[chipSelect]);
+						tmpData0 = (imData.TempOffsetCSList[chipSelect] >= 0x100) ? ((int)playImData.m_data0) : ((int)(playImData.m_data0)+imData.TempOffsetCSList[chipSelect]);
 						if (imData.TopCodeCSList[chipSelect] < 0x100)
 						{
 							AddTextData("",$"\t0x{(imData.TopCodeCSList[chipSelect] & 0xFF):X2}, 0x{tmpData0:X2},","");
@@ -215,7 +215,7 @@ namespace F1
 						var f1 = (playImData.m_vStrmSamplingRate >> 16) & 0xFF;
 						var f2 = (playImData.m_vStrmSamplingRate >>  8) & 0xFF;
 						var f3 = (playImData.m_vStrmSamplingRate      ) & 0xFF;
-						tmpData0 = (imData.TempOffsetCSList[chipSelect] > 0x100) ? ((int)playImData.m_data0) : ((int)(playImData.m_data0)+imData.TempOffsetCSList[chipSelect]);
+						tmpData0 = (imData.TempOffsetCSList[chipSelect] >= 0x100) ? ((int)playImData.m_data0) : ((int)(playImData.m_data0)+imData.TempOffsetCSList[chipSelect]);
 					if (imData.TopCodeCSList[chipSelect] < 0x100)
 						{
 							AddTextData("",$"\t0x{(imData.TopCodeCSList[chipSelect] & 0xFF):X2}, 0x{tmpData0:X2}, 0x{playImData.m_data1:X2}, 0x{f0:X2}, 0x{f1:X2}, 0x{f2:X2}, 0x{f3:X2},","");
@@ -258,7 +258,7 @@ namespace F1
 						var z1 = (playImData.m_vStrmSize >> 16) & 0xFF;
 						var z2 = (playImData.m_vStrmSize >>  8) & 0xFF;
 						var z3 = (playImData.m_vStrmSize      ) & 0xFF;
-						tmpData0 = (imData.TempOffsetCSList[chipSelect] > 0x100) ? ((int)playImData.m_data0) : ((int)(playImData.m_data0)+imData.TempOffsetCSList[chipSelect]);
+						tmpData0 = (imData.TempOffsetCSList[chipSelect] >= 0x100) ? ((int)playImData.m_data0) : ((int)(playImData.m_data0)+imData.TempOffsetCSList[chipSelect]);
 						if (imData.TopCodeCSList[chipSelect] < 0x100)
 						{
 							AddTextData("",$"\t0x{(imData.TopCodeCSList[chipSelect] & 0xFF):X2}, 0x{tmpData0:X2}, 0x{playImData.m_data1:X2}, 0x{playImData.m_vStrmFlagMode:X2}, 0x{s0:X2}, 0x{s1:X2}, 0x{s2:X2}, 0x{s3:X2}, 0x{z0:X2}, 0x{z1:X2}, 0x{z2:X2}, 0x{z3:X2},","");
@@ -293,7 +293,7 @@ namespace F1
 								AddTextData("", F1TReservedWord.F1TPlayDataOpecodeStrings[(int)F1TReservedWord.F1TPlayDataOpecode.A1],$"{a1s[chipSelect]}");
 							}
 						}
-						tmpData0 = (imData.TempOffsetCSList[chipSelect] > 0x100) ? ((int)playImData.m_data0) : ((int)(playImData.m_data0)+imData.TempOffsetCSList[chipSelect]);
+						tmpData0 = (imData.TempOffsetCSList[chipSelect] >= 0x100) ? ((int)playImData.m_data0) : ((int)(playImData.m_data0)+imData.TempOffsetCSList[chipSelect]);
 						if (imData.TopCodeCSList[chipSelect] < 0x100)
 						{
 							AddTextData("",$"\t0x{(imData.TopCodeCSList[chipSelect] & 0xFF):X2}, 0x{tmpData0:X2}, 0x{playImData.m_data1:X2},","");
@@ -338,7 +338,7 @@ namespace F1
 						var z01 = (playImData.m_vStrmSize >> 16) & 0xFF;
 						var z02 = (playImData.m_vStrmSize >>  8) & 0xFF;
 						var z03 = (playImData.m_vStrmSize      ) & 0xFF;
-						tmpData0 = (imData.TempOffsetCSList[chipSelect] > 0x100) ? ((int)playImData.m_data0) : ((int)(playImData.m_data0)+imData.TempOffsetCSList[chipSelect]);
+						tmpData0 = (imData.TempOffsetCSList[chipSelect] >= 0x100) ? ((int)playImData.m_data0) : ((int)(playImData.m_data0)+imData.TempOffsetCSList[chipSelect]);
 						if (imData.TopCodeCSList[chipSelect] < 0x100)
 						{
 							AddTextData("",$"\t0x{(imData.TopCodeCSList[chipSelect] & 0xFF):X2}, 0x{tmpData0:X2}, 0x{playImData.m_data1:X2}, 0x{b0:X2}, 0x{b1:X2}, 0x{playImData.m_vStrmFlagMode:X2}, 0x{s00:X2}, 0x{s01:X2}, 0x{s02:X2}, 0x{s03:X2}, 0x{z00:X2}, 0x{z01:X2}, 0x{z02:X2}, 0x{z03:X2},","");

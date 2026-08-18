@@ -136,7 +136,7 @@ namespace F1
 								m_address += 2;
 							}
 						}
-						tmpData0 = (imData.TempOffsetCSList[chipSelect] > 0x100) ? ((int)playImData.m_data0) : ((int)(playImData.m_data0)+imData.TempOffsetCSList[chipSelect]);
+						tmpData0 = (imData.TempOffsetCSList[chipSelect] >= 0x100) ? ((int)playImData.m_data0) : ((int)(playImData.m_data0)+imData.TempOffsetCSList[chipSelect]);
 						if (imData.TopCodeCSList[chipSelect] < 0x100)
 						{
 							AddTextData($"{(imData.TopCodeCSList[chipSelect] & 0xFF):X2} {tmpData0:X2} {playImData.m_data1:X2}");
@@ -180,7 +180,7 @@ namespace F1
 								m_address += 2;
 							}
 						}
-						tmpData0 = (imData.TempOffsetCSList[chipSelect] > 0x100) ? ((int)playImData.m_data0) : ((int)(playImData.m_data0)+imData.TempOffsetCSList[chipSelect]);
+						tmpData0 = (imData.TempOffsetCSList[chipSelect] >= 0x100) ? ((int)playImData.m_data0) : ((int)(playImData.m_data0)+imData.TempOffsetCSList[chipSelect]);
 						if (imData.TopCodeCSList[chipSelect] < 0x100)
 						{
 							AddTextData($"{(imData.TopCodeCSList[chipSelect] & 0xFF):X2} {tmpData0:X2}");
@@ -224,7 +224,7 @@ namespace F1
 								m_address += 2;
 							}
 						}
-						tmpData0 = (imData.TempOffsetCSList[chipSelect] > 0x100) ? ((int)playImData.m_data0) : ((int)(playImData.m_data0)+imData.TempOffsetCSList[chipSelect]);
+						tmpData0 = (imData.TempOffsetCSList[chipSelect] >= 0x100) ? ((int)playImData.m_data0) : ((int)(playImData.m_data0)+imData.TempOffsetCSList[chipSelect]);
 						if (imData.TopCodeCSList[chipSelect] < 0x100)
 						{
 							AddTextData($"{(imData.TopCodeCSList[chipSelect] & 0xFF):X2} {tmpData0:X2} {playImData.m_data1:X2} {playImData.m_vStrmStepBase:X2} {playImData.m_vStrmStepSize:X2}");
@@ -268,7 +268,7 @@ namespace F1
 								m_address += 2;
 							}
 						}
-						tmpData0 = (imData.TempOffsetCSList[chipSelect] > 0x100) ? ((int)playImData.m_data0) : ((int)(playImData.m_data0)+imData.TempOffsetCSList[chipSelect]);
+						tmpData0 = (imData.TempOffsetCSList[chipSelect] >= 0x100) ? ((int)playImData.m_data0) : ((int)(playImData.m_data0)+imData.TempOffsetCSList[chipSelect]);
 						if (imData.TopCodeCSList[chipSelect] < 0x100)
 						{
 							AddTextData($"{(imData.TopCodeCSList[chipSelect] & 0xFF):X2} {tmpData0:X2} {playImData.m_data1:X2} {playImData.m_vStrmSamplingRate:X8}");
@@ -312,7 +312,7 @@ namespace F1
 								m_address += 2;
 							}
 						}
-						tmpData0 = (imData.TempOffsetCSList[chipSelect] > 0x100) ? ((int)playImData.m_data0) : ((int)(playImData.m_data0)+imData.TempOffsetCSList[chipSelect]);
+						tmpData0 = (imData.TempOffsetCSList[chipSelect] >= 0x100) ? ((int)playImData.m_data0) : ((int)(playImData.m_data0)+imData.TempOffsetCSList[chipSelect]);
 						if (imData.TopCodeCSList[chipSelect] < 0x100)
 						{
 							AddTextData($"{(imData.TopCodeCSList[chipSelect] & 0xFF):X2} {tmpData0:X2} {playImData.m_data1:X2} {playImData.m_vStrmFlagMode:X2} {playImData.m_vStrmStart:X8} {playImData.m_vStrmSize:X8}");
@@ -356,7 +356,7 @@ namespace F1
 								m_address += 2;
 							}
 						}
-						tmpData0 = (imData.TempOffsetCSList[chipSelect] > 0x100) ? ((int)playImData.m_data0) : ((int)(playImData.m_data0)+imData.TempOffsetCSList[chipSelect]);
+						tmpData0 = (imData.TempOffsetCSList[chipSelect] >= 0x100) ? ((int)playImData.m_data0) : ((int)(playImData.m_data0)+imData.TempOffsetCSList[chipSelect]);
 						if (imData.TopCodeCSList[chipSelect] < 0x100)
 						{
 							AddTextData($"{(imData.TopCodeCSList[chipSelect] & 0xFF):X2} {tmpData0:X2} {playImData.m_data1:X2}");
@@ -400,7 +400,7 @@ namespace F1
 								m_address += 2;
 							}
 						}
-						tmpData0 = (imData.TempOffsetCSList[chipSelect] > 0x100) ? ((int)playImData.m_data0) : ((int)(playImData.m_data0)+imData.TempOffsetCSList[chipSelect]);
+						tmpData0 = (imData.TempOffsetCSList[chipSelect] >= 0x100) ? ((int)playImData.m_data0) : ((int)(playImData.m_data0)+imData.TempOffsetCSList[chipSelect]);
 						if (imData.TopCodeCSList[chipSelect] < 0x100)
 						{
 							AddTextData($"{(imData.TopCodeCSList[chipSelect] & 0xFF):X2} {tmpData0:X2} {playImData.m_data1:X2} {playImData.m_vStrmBlockId:X4} {playImData.m_vStrmFlagMode:X2} {playImData.m_vStrmStart:X8} {playImData.m_vStrmSize:X8}");
