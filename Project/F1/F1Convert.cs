@@ -222,7 +222,7 @@ namespace F1
 					break;
 
 				default:
-					DisplayError("Unknown sorce file format.");
+					DisplayError("Unknown source file format.");
 					return SourceFormat.NONE;
 			}
 
